@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Cooper Lane — Founder, Right On Technologies</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+      :root {
+        --bg: #0a0a0a;
+        --surface: #111;
+        --text: #f0f0f0;
+        --muted: #777;
+        --gold: #c9a84c;
+        --border: rgba(255, 255, 255, 0.07);
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "DM Sans", sans-serif;
+        line-height: 1.65;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px 48px;
+        border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 0;
+        background: rgba(10, 10, 10, 0.92);
+        backdrop-filter: blur(12px);
+        z-index: 100;
+      }
+      .nav-logo {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 20px;
+        letter-spacing: 0.08em;
+        color: var(--gold);
+      }
+      nav a.nav-link {
+        color: var(--gold);
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        transition: opacity 0.2s;
+      }
+      nav a.nav-link:hover {
+        opacity: 0.7;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1fr 420px;
+        gap: 80px;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 100px 48px 80px;
+      }
+      .hero-text .eyebrow {
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 24px;
+      }
+      .hero-name {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(80px, 12vw, 160px);
+        line-height: 0.9;
+        letter-spacing: 0.02em;
+        color: var(--text);
+      }
+      .hero-name span {
+        color: var(--gold);
+      }
+      .hero-title {
+        margin-top: 24px;
+        font-size: 18px;
+        font-weight: 300;
+        color: var(--muted);
+      }
+      .hero-photo {
+        aspect-ratio: 3/4;
+        overflow: hidden;
+        border: 1px solid var(--border);
+      }
+      .hero-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: grayscale(20%);
+      }
+
+      section.content {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 0 48px;
+      }
+      .section-label {
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 20px;
+      }
+      .story {
+        padding: 80px 0;
+      }
+      .story p {
+        font-size: 17px;
+        font-weight: 300;
+        color: rgba(240, 240, 240, 0.82);
+        line-height: 1.8;
+        margin-bottom: 24px;
+      }
+      .story p:last-child {
+        margin-bottom: 0;
+      }
+      .pull-quote {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(28px, 4vw, 44px);
+        line-height: 1.1;
+        color: var(--text);
+        margin: 40px 0;
+        padding-left: 24px;
+        border-left: 3px solid var(--gold);
+      }
+
+      .builds {
+        padding: 0 0 80px;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding-left: 48px;
+        padding-right: 48px;
+      }
+      .builds-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2px;
+        margin-top: 24px;
+      }
+      .build-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        padding: 36px 32px;
+        transition: border-color 0.3s;
+      }
+      .build-card:hover {
+        border-color: rgba(201, 168, 76, 0.35);
+      }
+      .build-card .tag {
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 12px;
+      }
+      .build-card h3 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 32px;
+        letter-spacing: 0.04em;
+        margin-bottom: 12px;
+      }
+      .build-card p {
+        font-size: 14px;
+        font-weight: 300;
+        color: var(--muted);
+        line-height: 1.6;
+        margin-bottom: 20px;
+      }
+      .build-card a.link {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--gold);
+        letter-spacing: 0.04em;
+        transition: opacity 0.2s;
+      }
+      .build-card a.link:hover {
+        opacity: 0.7;
+      }
+
+      .work {
+        padding: 0 48px 80px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .work-list {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        margin-top: 24px;
+      }
+      .work-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        padding: 24px 32px;
+        transition: border-color 0.3s;
+      }
+      .work-item:hover {
+        border-color: rgba(201, 168, 76, 0.35);
+      }
+      .work-item .name {
+        font-size: 16px;
+        font-weight: 500;
+      }
+      .work-item .type {
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .work-item a {
+        font-size: 13px;
+        color: var(--gold);
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        white-space: nowrap;
+        transition: opacity 0.2s;
+      }
+      .work-item a:hover {
+        opacity: 0.7;
+      }
+
+      .connect {
+        padding: 0 48px 120px;
+        max-width: 760px;
+        margin: 0 auto;
+      }
+      .connect-cta {
+        font-size: clamp(28px, 4vw, 48px);
+        font-family: "Bebas Neue", sans-serif;
+        letter-spacing: 0.04em;
+        margin: 20px 0 36px;
+        line-height: 1.1;
+      }
+      .connect-cta span {
+        color: var(--gold);
+      }
+      .contact-links {
+        display: flex;
+        gap: 32px;
+        flex-wrap: wrap;
+      }
+      .contact-links a {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--muted);
+        letter-spacing: 0.04em;
+        transition: color 0.2s;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 2px;
+      }
+      .contact-links a:hover {
+        color: var(--gold);
+        border-color: var(--gold);
+      }
+
+      footer {
+        border-top: 1px solid var(--border);
+        padding: 32px 48px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 13px;
+        color: var(--muted);
+      }
+      footer a {
+        color: var(--gold);
+      }
+
+      @media (max-width: 900px) {
+        .hero {
+          grid-template-columns: 1fr;
+          gap: 40px;
+          padding: 60px 24px 60px;
+        }
+        .hero-photo {
+          max-width: 320px;
+        }
+        .builds-grid {
+          grid-template-columns: 1fr;
+        }
+        section.content,
+        .builds,
+        .work,
+        .connect {
+          padding-left: 24px;
+          padding-right: 24px;
+        }
+        nav,
+        footer {
+          padding: 20px 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <span class="nav-logo">Right On Technologies</span>
+      <a class="nav-link" href="https://www.rightontech.org">← Portfolio</a>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-text">
+        <p class="eyebrow">Founder &amp; CEO · Bangkok, Thailand</p>
+        <div class="hero-name">COOPER<br /><span>LANE</span></div>
+        <p class="hero-title">
+          Building AI automation and premium websites<br />from Southeast Asia.
+        </p>
+      </div>
+      <div class="hero-photo">
+        <img
+          src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&auto=format&fit=crop&q=80"
+          alt="Cooper Lane"
+        />
+      </div>
+    </section>
+
+    <section class="content story">
+      <p class="section-label">Story</p>
+      <p>
+        I got flown to Brisbane to pitch the CEO of a 43-store national trade
+        supplier. Six months earlier I was working at their warehouse in
+        Bunbury.
+      </p>
+      <div class="pull-quote">
+        Find a problem that's real.<br /><span style="color: var(--gold)"
+          >Then actually build the solution.</span
+        >
+      </div>
+      <p>
+        I started Right On Technologies after noticing something at Samios
+        Plumbing Supplies. Staff were spending roughly two days every week
+        manually matching customer order codes to supplier SKUs — copy, search,
+        paste, repeat. I built the automation in Python + Claude API + Airtable.
+        Then I got in front of the CEO and the board of BGW Group. We put a $14k
+        pilot on the table with a $36k/store/year rollout model. The pipeline is
+        still open.
+      </p>
+      <p>
+        While that plays out, I'm running a web design agency targeting
+        hospitality businesses across Southeast Asia. Most small businesses have
+        websites that look like they were built in 2014, and the owners know it.
+        I build premium animated sites using GSAP and Vercel, using Claude Code
+        to move faster than a traditional agency. The gap between what I charge
+        and what an agency charges for the same quality is the whole pitch.
+      </p>
+    </section>
+
+    <div class="builds">
+      <p class="section-label">What I Build</p>
+      <div class="builds-grid">
+        <div class="build-card">
+          <p class="tag">Web Design Agency</p>
+          <h3>Right On Technologies</h3>
+          <p>
+            Premium animated websites for hospitality businesses across
+            Southeast Asia. Fraction of agency price, same quality.
+          </p>
+          <a class="link" href="https://www.rightontech.org"
+            >rightontech.org →</a
+          >
+        </div>
+        <div class="build-card">
+          <p class="tag">AI SaaS / Automation</p>
+          <h3>SKU Matching System</h3>
+          <p>
+            Python + Claude API automation that eliminates the 2-day/week manual
+            SKU matching task in trade supply businesses.
+          </p>
+          <a class="link" href="mailto:cooper@rightontech.org"
+            >Get in touch →</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="work">
+      <p class="section-label">Featured Work</p>
+      <div class="work-list">
+        <div class="work-item">
+          <div>
+            <div class="name">Nomad Nest Chiang Mai</div>
+            <div class="type">Co-living / Hospitality</div>
+          </div>
+          <a
+            href="https://nomad-nest-chiang-mai.vercel.app"
+            target="_blank"
+            rel="noopener"
+            >View Site →</a
+          >
+        </div>
+        <div class="work-item">
+          <div>
+            <div class="name">FORGE Athletics London</div>
+            <div class="type">CrossFit / Fitness</div>
+          </div>
+          <a
+            href="https://forge-athletics-two.vercel.app"
+            target="_blank"
+            rel="noopener"
+            >View Site →</a
+          >
+        </div>
+        <div class="work-item">
+          <div>
+            <div class="name">Tanah Sari Resort Bali</div>
+            <div class="type">Luxury Hospitality</div>
+          </div>
+          <a
+            href="https://tanah-sari-resort.vercel.app"
+            target="_blank"
+            rel="noopener"
+            >View Site →</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <section class="connect">
+      <p class="section-label">Connect</p>
+      <p class="connect-cta">
+        Building something?<br /><span>Let's talk.</span>
+      </p>
+      <div class="contact-links">
+        <a href="mailto:cooper@rightontech.org">cooper@rightontech.org</a>
+        <a href="https://www.rightontech.org">rightontech.org</a>
+        <a href="https://github.com/rightontech" target="_blank" rel="noopener"
+          >github.com/rightontech</a
+        >
+      </div>
+    </section>
+
+    <footer>
+      <span>© 2026 Cooper Lane · Right On Technologies</span>
+      <a href="https://www.rightontech.org">rightontech.org</a>
+    </footer>
+
+    <script>
+      gsap.from(".hero-text .eyebrow", {
+        opacity: 0,
+        y: 16,
+        duration: 0.6,
+        ease: "power2.out",
+      });
+      gsap.from(".hero-name", {
+        opacity: 0,
+        y: 32,
+        duration: 0.8,
+        ease: "power2.out",
+        delay: 0.1,
+      });
+      gsap.from(".hero-title", {
+        opacity: 0,
+        y: 20,
+        duration: 0.6,
+        ease: "power2.out",
+        delay: 0.25,
+      });
+      gsap.from(".hero-photo", {
+        opacity: 0,
+        x: 20,
+        duration: 0.8,
+        ease: "power2.out",
+        delay: 0.2,
+      });
+    </script>
+  </body>
+</html>
