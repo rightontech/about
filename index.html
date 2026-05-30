@@ -6,18 +6,22 @@
     <title>Cooper Lane — Founder, Right On Technologies</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital@1&family=DM+Sans:wght@300;400;500&display=swap"
       rel="stylesheet"
     />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <style>
       :root {
         --bg: #0a0a0a;
-        --surface: #111;
+        --surface: #111111;
+        --card: #161616;
         --text: #f0f0f0;
-        --muted: #777;
+        --muted: #666666;
         --gold: #c9a84c;
-        --border: rgba(255, 255, 255, 0.07);
+        --gold-light: #e2bc6e;
+        --gold-dim: rgba(201, 168, 76, 0.08);
+        --border: rgba(255, 255, 255, 0.06);
       }
       *,
       *::before,
@@ -37,6 +41,7 @@
         text-decoration: none;
       }
 
+      /* NAV */
       nav {
         display: flex;
         align-items: center;
@@ -45,8 +50,8 @@
         border-bottom: 1px solid var(--border);
         position: sticky;
         top: 0;
-        background: rgba(10, 10, 10, 0.92);
-        backdrop-filter: blur(12px);
+        background: rgba(10, 10, 10, 0.9);
+        backdrop-filter: blur(14px);
         z-index: 100;
       }
       .nav-logo {
@@ -55,436 +60,691 @@
         letter-spacing: 0.08em;
         color: var(--gold);
       }
-      nav a.nav-link {
+      .nav-logo a {
         color: var(--gold);
-        font-size: 13px;
-        font-weight: 500;
-        letter-spacing: 0.04em;
-        transition: opacity 0.2s;
       }
-      nav a.nav-link:hover {
-        opacity: 0.7;
+      .nav-link {
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 0.04em;
+        transition: color 0.2s;
+      }
+      .nav-link:hover {
+        color: var(--gold);
       }
 
+      /* HERO */
       .hero {
         display: grid;
-        grid-template-columns: 1fr 420px;
-        gap: 80px;
+        grid-template-columns: 60% 40%;
         align-items: center;
         max-width: 1200px;
         margin: 0 auto;
         padding: 100px 48px 80px;
+        gap: 60px;
       }
-      .hero-text .eyebrow {
+      .hero-eyebrow {
         font-size: 11px;
         font-weight: 500;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: var(--gold);
-        margin-bottom: 24px;
-      }
-      .hero-name {
-        font-family: "Bebas Neue", sans-serif;
-        font-size: clamp(80px, 12vw, 160px);
-        line-height: 0.9;
-        letter-spacing: 0.02em;
-        color: var(--text);
-      }
-      .hero-name span {
-        color: var(--gold);
-      }
-      .hero-title {
-        margin-top: 24px;
-        font-size: 18px;
-        font-weight: 300;
-        color: var(--muted);
-      }
-      .hero-photo {
-        aspect-ratio: 3/4;
-        overflow: hidden;
-        border: 1px solid var(--border);
-      }
-      .hero-photo img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        filter: grayscale(20%);
-      }
-
-      section.content {
-        max-width: 760px;
-        margin: 0 auto;
-        padding: 0 48px;
-      }
-      .section-label {
-        font-size: 11px;
-        font-weight: 500;
-        letter-spacing: 0.12em;
+        letter-spacing: 0.14em;
         text-transform: uppercase;
         color: var(--gold);
         margin-bottom: 20px;
       }
-      .story {
-        padding: 80px 0;
+      .hero-name {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 130px;
+        line-height: 0.9;
+        letter-spacing: 0.02em;
       }
+      .hero-name .gold {
+        color: var(--gold);
+      }
+      .hero-subtitle {
+        margin-top: 28px;
+        font-size: 18px;
+        font-weight: 300;
+        color: var(--muted);
+      }
+      .hero-location {
+        margin-top: 10px;
+        font-size: 13px;
+        color: var(--gold);
+        letter-spacing: 0.06em;
+      }
+      .hero-avatar {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        border: 2px solid var(--gold);
+        background: #1a1a1a;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 48px;
+        color: var(--gold);
+        letter-spacing: 0.04em;
+        justify-self: center;
+      }
+
+      /* SECTION COMMON */
+      .section-label {
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 14px;
+      }
+      .section-rule {
+        border: none;
+        border-top: 1px solid var(--gold);
+        margin-bottom: 40px;
+        opacity: 0.3;
+      }
+      .section-wrap {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 80px 48px;
+      }
+      .section-wrap-narrow {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 80px 48px;
+      }
+
+      /* STORY */
       .story p {
         font-size: 17px;
         font-weight: 300;
         color: rgba(240, 240, 240, 0.82);
-        line-height: 1.8;
+        line-height: 1.85;
         margin-bottom: 24px;
       }
       .story p:last-child {
         margin-bottom: 0;
       }
       .pull-quote {
-        font-family: "Bebas Neue", sans-serif;
-        font-size: clamp(28px, 4vw, 44px);
-        line-height: 1.1;
-        color: var(--text);
-        margin: 40px 0;
-        padding-left: 24px;
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        font-size: clamp(24px, 3.2vw, 36px);
+        color: var(--gold);
+        line-height: 1.4;
+        padding: 24px 28px;
         border-left: 3px solid var(--gold);
+        margin: 40px 0;
+        background: var(--gold-dim);
       }
 
-      .builds {
-        padding: 0 0 80px;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding-left: 48px;
-        padding-right: 48px;
-      }
+      /* WHAT I BUILD */
       .builds-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 2px;
-        margin-top: 24px;
+        margin-top: 32px;
       }
       .build-card {
-        background: var(--surface);
+        background: var(--card);
         border: 1px solid var(--border);
-        padding: 36px 32px;
+        padding: 36px;
         transition: border-color 0.3s;
       }
       .build-card:hover {
-        border-color: rgba(201, 168, 76, 0.35);
+        border-color: rgba(201, 168, 76, 0.3);
       }
-      .build-card .tag {
-        font-size: 11px;
+      .build-card-active {
+        border-top: 2px solid var(--gold);
+      }
+      .build-card-pipeline {
+        border-top: 2px solid var(--muted);
+      }
+      .status-pill {
+        display: inline-block;
+        font-size: 10px;
         font-weight: 500;
-        letter-spacing: 0.1em;
+        letter-spacing: 0.12em;
         text-transform: uppercase;
-        color: var(--gold);
-        margin-bottom: 12px;
+        padding: 3px 8px;
+        border: 1px solid;
+        margin-bottom: 16px;
       }
-      .build-card h3 {
-        font-family: "Bebas Neue", sans-serif;
-        font-size: 32px;
-        letter-spacing: 0.04em;
-        margin-bottom: 12px;
-      }
-      .build-card p {
-        font-size: 14px;
-        font-weight: 300;
-        color: var(--muted);
-        line-height: 1.6;
-        margin-bottom: 20px;
-      }
-      .build-card a.link {
-        font-size: 13px;
-        font-weight: 500;
-        color: var(--gold);
-        letter-spacing: 0.04em;
-        transition: opacity 0.2s;
-      }
-      .build-card a.link:hover {
-        opacity: 0.7;
-      }
-
-      .work {
-        padding: 0 48px 80px;
-        max-width: 1200px;
-        margin: 0 auto;
-      }
-      .work-list {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-        margin-top: 24px;
-      }
-      .work-item {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background: var(--surface);
-        border: 1px solid var(--border);
-        padding: 24px 32px;
-        transition: border-color 0.3s;
-      }
-      .work-item:hover {
-        border-color: rgba(201, 168, 76, 0.35);
-      }
-      .work-item .name {
-        font-size: 16px;
-        font-weight: 500;
-      }
-      .work-item .type {
-        font-size: 12px;
-        color: var(--muted);
-      }
-      .work-item a {
-        font-size: 13px;
-        color: var(--gold);
-        font-weight: 500;
-        letter-spacing: 0.04em;
-        white-space: nowrap;
-        transition: opacity 0.2s;
-      }
-      .work-item a:hover {
-        opacity: 0.7;
-      }
-
-      .connect {
-        padding: 0 48px 120px;
-        max-width: 760px;
-        margin: 0 auto;
-      }
-      .connect-cta {
-        font-size: clamp(28px, 4vw, 48px);
-        font-family: "Bebas Neue", sans-serif;
-        letter-spacing: 0.04em;
-        margin: 20px 0 36px;
-        line-height: 1.1;
-      }
-      .connect-cta span {
-        color: var(--gold);
-      }
-      .contact-links {
-        display: flex;
-        gap: 32px;
-        flex-wrap: wrap;
-      }
-      .contact-links a {
-        font-size: 14px;
-        font-weight: 500;
-        color: var(--muted);
-        letter-spacing: 0.04em;
-        transition: color 0.2s;
-        border-bottom: 1px solid var(--border);
-        padding-bottom: 2px;
-      }
-      .contact-links a:hover {
+      .pill-active {
         color: var(--gold);
         border-color: var(--gold);
       }
+      .pill-pipeline {
+        color: var(--muted);
+        border-color: var(--muted);
+      }
+      .build-card h3 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 28px;
+        letter-spacing: 0.04em;
+        margin-bottom: 12px;
+      }
+      .build-card .desc {
+        font-size: 14px;
+        font-weight: 300;
+        color: var(--muted);
+        line-height: 1.65;
+        margin-bottom: 14px;
+      }
+      .build-card .detail {
+        font-size: 12px;
+        color: rgba(102, 102, 102, 0.8);
+        margin-bottom: 20px;
+        letter-spacing: 0.03em;
+      }
+      .card-link {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--gold);
+        letter-spacing: 0.04em;
+        transition: opacity 0.2s;
+      }
+      .card-link:hover {
+        opacity: 0.7;
+      }
 
-      footer {
-        border-top: 1px solid var(--border);
-        padding: 32px 48px;
+      /* FEATURED WORK */
+      .work-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2px;
+        margin-top: 32px;
+      }
+      .work-item {
+        background: var(--card);
+        border: 1px solid var(--border);
+        overflow: hidden;
+        transition: border-color 0.3s;
+      }
+      .work-item:hover {
+        border-color: rgba(201, 168, 76, 0.25);
+      }
+      .work-thumb {
+        aspect-ratio: 16/9;
+        overflow: hidden;
+      }
+      .work-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.4s;
+        filter: grayscale(15%);
+      }
+      .work-item:hover .work-thumb img {
+        transform: scale(1.04);
+      }
+      .work-meta {
+        padding: 18px 20px;
+      }
+      .work-name {
+        font-size: 15px;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+      .work-desc {
+        font-size: 12px;
+        color: var(--muted);
+        margin-bottom: 10px;
+        line-height: 1.5;
+      }
+      .work-link {
+        font-size: 13px;
+        color: var(--gold);
+        font-weight: 500;
+        transition: opacity 0.2s;
+      }
+      .work-link:hover {
+        opacity: 0.7;
+      }
+      .work-all {
+        text-align: center;
+        margin-top: 36px;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--gold);
+        letter-spacing: 0.04em;
+        transition: opacity 0.2s;
+      }
+      .work-all:hover {
+        opacity: 0.7;
+      }
+
+      /* THE APPROACH */
+      .approach-list {
+        margin-top: 32px;
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
+        gap: 20px;
+      }
+      .approach-line {
+        font-size: 18px;
+        font-weight: 300;
+        color: rgba(240, 240, 240, 0.85);
+        line-height: 1.6;
+      }
+      .approach-line .em {
+        color: var(--gold);
+        font-style: normal;
+      }
+
+      /* AVAILABILITY */
+      .avail-box {
+        border-left: 4px solid var(--gold);
+        background: var(--surface);
+        padding: 32px 36px;
+        margin-top: 32px;
+      }
+      .avail-label {
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 14px;
+      }
+      .avail-heading {
+        font-size: 18px;
+        font-weight: 500;
+        color: var(--text);
+        margin-bottom: 10px;
+      }
+      .avail-desc {
+        font-size: 15px;
+        font-weight: 300;
+        color: var(--muted);
+        margin-bottom: 24px;
+        line-height: 1.65;
+      }
+      .email-btn {
+        display: inline-block;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        color: var(--gold);
+        border: 1px solid var(--gold);
+        padding: 10px 20px;
+        transition:
+          background 0.2s,
+          color 0.2s;
+      }
+      .email-btn:hover {
+        background: var(--gold);
+        color: #0a0a0a;
+      }
+
+      /* FOOTER */
+      footer {
+        border-top: 1px solid var(--gold-dim);
+        padding: 28px 48px;
+        text-align: center;
         font-size: 13px;
         color: var(--muted);
       }
       footer a {
+        color: var(--muted);
+        transition: color 0.2s;
+      }
+      footer a:hover {
         color: var(--gold);
       }
+      .sep {
+        margin: 0 8px;
+      }
 
+      /* MOBILE */
       @media (max-width: 900px) {
+        nav,
+        footer {
+          padding: 20px 24px;
+        }
         .hero {
           grid-template-columns: 1fr;
           gap: 40px;
           padding: 60px 24px 60px;
         }
-        .hero-photo {
-          max-width: 320px;
+        .hero-name {
+          font-size: clamp(72px, 20vw, 120px);
         }
-        .builds-grid {
+        .hero-avatar {
+          order: -1;
+        }
+        .section-wrap,
+        .section-wrap-narrow {
+          padding: 60px 24px;
+        }
+        .builds-grid,
+        .work-grid {
           grid-template-columns: 1fr;
-        }
-        section.content,
-        .builds,
-        .work,
-        .connect {
-          padding-left: 24px;
-          padding-right: 24px;
-        }
-        nav,
-        footer {
-          padding: 20px 24px;
         }
       }
     </style>
   </head>
   <body>
     <nav>
-      <span class="nav-logo">Right On Technologies</span>
-      <a class="nav-link" href="https://www.rightontech.org">← Portfolio</a>
+      <span class="nav-logo"
+        ><a href="https://rightontech.org">Right On Technologies</a></span
+      >
+      <a class="nav-link" href="https://rightontech.org">← Portfolio</a>
     </nav>
 
-    <section class="hero">
+    <!-- HERO -->
+    <div class="hero">
       <div class="hero-text">
-        <p class="eyebrow">Founder &amp; CEO · Bangkok, Thailand</p>
-        <div class="hero-name">COOPER<br /><span>LANE</span></div>
-        <p class="hero-title">
-          Building AI automation and premium websites<br />from Southeast Asia.
+        <p class="hero-eyebrow">Founder · CEO · Right On Technologies</p>
+        <div class="hero-name">
+          COOPER<br />
+          <span class="gold">LANE</span>
+        </div>
+        <p class="hero-subtitle">Web Design &amp; AI Systems</p>
+        <p class="hero-location">Southeast Asia — Available Worldwide</p>
+      </div>
+      <div class="hero-avatar">CL</div>
+    </div>
+
+    <!-- THE STORY -->
+    <div class="section-wrap-narrow">
+      <p class="section-label">The Story</p>
+      <hr class="section-rule" />
+      <div class="story">
+        <p>
+          I got flown to Brisbane to pitch the CEO of a 43-store national trade
+          supplier. Six months earlier I was working at their warehouse in
+          Bunbury.
+        </p>
+
+        <p>
+          I started Right On Technologies after noticing something at Samios
+          Plumbing Supplies. Staff were spending roughly two days every week
+          manually matching customer order codes to supplier SKUs — copy,
+          search, paste, repeat. I built the automation in Python + Claude API +
+          Airtable. Then I got in front of the CEO and the board of BGW Group,
+          their parent company, and proposed a $14k pilot with a $36k/store/year
+          rollout model across 43 stores. They liked it. It got deprioritised
+          for now. The pipeline is still open and I'm still working it.
+        </p>
+
+        <div class="pull-quote">
+          "The gap between what I charge and what an agency charges for the same
+          quality is the whole pitch."
+        </div>
+
+        <p>
+          While that plays out, I'm running a web design agency targeting
+          hospitality businesses across Southeast Asia — beach clubs, hostels,
+          bars. Most small businesses have websites that look like they were
+          built in 2014, and the owners know it. I build premium animated sites
+          using GSAP and Vercel, and I use Claude Code to move faster than a
+          traditional agency. The gap between what I charge and what an agency
+          charges for the same quality is the whole pitch.
+        </p>
+
+        <p>
+          Both of these came from the same instinct: find a problem that's real,
+          figure out if it's solvable, then actually build the solution. I'm not
+          trying to build a career. I'm trying to build things that work.
         </p>
       </div>
-      <div class="hero-photo">
-        <img
-          src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&auto=format&fit=crop&q=80"
-          alt="Cooper Lane"
-        />
-      </div>
-    </section>
+    </div>
 
-    <section class="content story">
-      <p class="section-label">Story</p>
-      <p>
-        I got flown to Brisbane to pitch the CEO of a 43-store national trade
-        supplier. Six months earlier I was working at their warehouse in
-        Bunbury.
-      </p>
-      <div class="pull-quote">
-        Find a problem that's real.<br /><span style="color: var(--gold)"
-          >Then actually build the solution.</span
-        >
-      </div>
-      <p>
-        I started Right On Technologies after noticing something at Samios
-        Plumbing Supplies. Staff were spending roughly two days every week
-        manually matching customer order codes to supplier SKUs — copy, search,
-        paste, repeat. I built the automation in Python + Claude API + Airtable.
-        Then I got in front of the CEO and the board of BGW Group. We put a $14k
-        pilot on the table with a $36k/store/year rollout model. The pipeline is
-        still open.
-      </p>
-      <p>
-        While that plays out, I'm running a web design agency targeting
-        hospitality businesses across Southeast Asia. Most small businesses have
-        websites that look like they were built in 2014, and the owners know it.
-        I build premium animated sites using GSAP and Vercel, using Claude Code
-        to move faster than a traditional agency. The gap between what I charge
-        and what an agency charges for the same quality is the whole pitch.
-      </p>
-    </section>
-
-    <div class="builds">
+    <!-- WHAT I BUILD -->
+    <div class="section-wrap">
       <p class="section-label">What I Build</p>
+      <hr class="section-rule" />
       <div class="builds-grid">
-        <div class="build-card">
-          <p class="tag">Web Design Agency</p>
-          <h3>Right On Technologies</h3>
-          <p>
+        <div class="build-card build-card-active">
+          <span class="status-pill pill-active">Active</span>
+          <h3>Web Design Agency</h3>
+          <p class="desc">
             Premium animated websites for hospitality businesses across
-            Southeast Asia. Fraction of agency price, same quality.
+            Southeast Asia. GSAP animations, custom builds, Vercel deployment.
           </p>
-          <a class="link" href="https://www.rightontech.org"
-            >rightontech.org →</a
+          <p class="detail">6 spec builds live · Taking new clients now</p>
+          <a
+            class="card-link"
+            href="https://work.rightontech.org"
+            target="_blank"
+            rel="noopener"
+            >See the work →</a
           >
         </div>
-        <div class="build-card">
-          <p class="tag">AI SaaS / Automation</p>
-          <h3>SKU Matching System</h3>
-          <p>
-            Python + Claude API automation that eliminates the 2-day/week manual
-            SKU matching task in trade supply businesses.
+        <div class="build-card build-card-pipeline">
+          <span class="status-pill pill-pipeline">Pipeline</span>
+          <h3>AI SKU Matching</h3>
+          <p class="desc">
+            Python + Claude API automation that eliminates 2 days/week of manual
+            SKU matching in trade supply businesses.
           </p>
-          <a class="link" href="mailto:cooper@rightontech.org"
+          <p class="detail">BGW Group / Samios · 43 stores AU-wide</p>
+          <a class="card-link" href="mailto:technologiesrighton@gmail.com"
             >Get in touch →</a
           >
         </div>
       </div>
     </div>
 
-    <div class="work">
+    <!-- FEATURED WORK -->
+    <div class="section-wrap">
       <p class="section-label">Featured Work</p>
-      <div class="work-list">
+      <hr class="section-rule" />
+      <div class="work-grid">
         <div class="work-item">
-          <div>
-            <div class="name">Nomad Nest Chiang Mai</div>
-            <div class="type">Co-living / Hospitality</div>
+          <div class="work-thumb">
+            <img
+              src="https://images.unsplash.com/photo-1598531079963-f60e24dbcfc0?w=600&auto=format&fit=crop&q=80"
+              alt="Nomad Nest Chiang Mai"
+              loading="lazy"
+            />
           </div>
-          <a
-            href="https://nomad-nest-chiang-mai.vercel.app"
-            target="_blank"
-            rel="noopener"
-            >View Site →</a
-          >
+          <div class="work-meta">
+            <div class="work-name">Nomad Nest</div>
+            <div class="work-desc">Co-living · Chiang Mai</div>
+            <a
+              class="work-link"
+              href="https://work.rightontech.org"
+              target="_blank"
+              rel="noopener"
+              >View →</a
+            >
+          </div>
         </div>
         <div class="work-item">
-          <div>
-            <div class="name">FORGE Athletics London</div>
-            <div class="type">CrossFit / Fitness</div>
+          <div class="work-thumb">
+            <img
+              src="https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?w=600&auto=format&fit=crop&q=80"
+              alt="Clearwater"
+              loading="lazy"
+            />
           </div>
-          <a
-            href="https://forge-athletics-two.vercel.app"
-            target="_blank"
-            rel="noopener"
-            >View Site →</a
-          >
+          <div class="work-meta">
+            <div class="work-name">Clearwater</div>
+            <div class="work-desc">Beach Club · Southeast Asia</div>
+            <a
+              class="work-link"
+              href="https://work.rightontech.org"
+              target="_blank"
+              rel="noopener"
+              >View →</a
+            >
+          </div>
         </div>
         <div class="work-item">
-          <div>
-            <div class="name">Tanah Sari Resort Bali</div>
-            <div class="type">Luxury Hospitality</div>
+          <div class="work-thumb">
+            <img
+              src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&auto=format&fit=crop&q=80"
+              alt="Osteria"
+              loading="lazy"
+            />
           </div>
-          <a
-            href="https://tanah-sari-resort.vercel.app"
-            target="_blank"
-            rel="noopener"
-            >View Site →</a
-          >
+          <div class="work-meta">
+            <div class="work-name">Osteria</div>
+            <div class="work-desc">Restaurant · Fine Dining</div>
+            <a
+              class="work-link"
+              href="https://work.rightontech.org"
+              target="_blank"
+              rel="noopener"
+              >View →</a
+            >
+          </div>
         </div>
+      </div>
+      <a
+        class="work-all"
+        href="https://work.rightontech.org"
+        target="_blank"
+        rel="noopener"
+        >See all six projects →</a
+      >
+    </div>
+
+    <!-- THE APPROACH -->
+    <div class="section-wrap-narrow">
+      <p class="section-label">The Approach</p>
+      <hr class="section-rule" />
+      <div class="approach-list">
+        <p class="approach-line">
+          <span class="em">—</span> Fast builds. Most sites take 3–5 days, not
+          3–5 weeks.
+        </p>
+        <p class="approach-line">
+          <span class="em">—</span> No agency overhead. One person, full
+          accountability, direct communication.
+        </p>
+        <p class="approach-line">
+          <span class="em">—</span> AI-augmented. Claude Code + GSAP + modern
+          tooling means I move at a speed agencies can't match.
+        </p>
+        <p class="approach-line">
+          <span class="em">—</span> Honest pricing. You know exactly what you're
+          getting before you pay anything.
+        </p>
       </div>
     </div>
 
-    <section class="connect">
-      <p class="section-label">Connect</p>
-      <p class="connect-cta">
-        Building something?<br /><span>Let's talk.</span>
-      </p>
-      <div class="contact-links">
-        <a href="mailto:cooper@rightontech.org">cooper@rightontech.org</a>
-        <a href="https://www.rightontech.org">rightontech.org</a>
-        <a href="https://github.com/rightontech" target="_blank" rel="noopener"
-          >github.com/rightontech</a
+    <!-- CURRENTLY AVAILABLE -->
+    <div class="section-wrap-narrow">
+      <p class="section-label">Currently Available</p>
+      <hr class="section-rule" />
+      <div class="avail-box">
+        <p class="avail-label">Availability</p>
+        <p class="avail-heading">Based in Southeast Asia.</p>
+        <p class="avail-desc">
+          Taking on new web design projects now. Most sites delivered within 5
+          days.
+        </p>
+        <a class="email-btn" href="mailto:technologiesrighton@gmail.com"
+          >technologiesrighton@gmail.com</a
         >
       </div>
-    </section>
+    </div>
 
+    <!-- FOOTER -->
     <footer>
-      <span>© 2026 Cooper Lane · Right On Technologies</span>
-      <a href="https://www.rightontech.org">rightontech.org</a>
+      <a href="https://rightontech.org">rightontech.org</a>
+      <span class="sep" style="color: var(--muted)">·</span>
+      <a href="https://work.rightontech.org">work.rightontech.org</a>
+      <span class="sep" style="color: var(--muted)">·</span>
+      <a href="https://github.com/rightontech" target="_blank" rel="noopener"
+        >github.com/rightontech</a
+      >
+      <span class="sep" style="color: var(--muted)">·</span>
+      <a href="mailto:technologiesrighton@gmail.com"
+        >technologiesrighton@gmail.com</a
+      >
     </footer>
 
     <script>
-      gsap.from(".hero-text .eyebrow", {
-        opacity: 0,
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Hero entrance (fires immediately, no ScrollTrigger)
+      gsap.from(".hero-eyebrow", {
         y: 16,
-        duration: 0.6,
-        ease: "power2.out",
-      });
-      gsap.from(".hero-name", {
         opacity: 0,
-        y: 32,
-        duration: 0.8,
+        duration: 0.5,
         ease: "power2.out",
+        delay: 0,
+      });
+      gsap.from(".hero-name div, .hero-name", {
+        y: 40,
+        opacity: 0,
+        duration: 0.7,
+        ease: "power2.out",
+        stagger: 0.1,
         delay: 0.1,
       });
-      gsap.from(".hero-title", {
+      gsap.from(".hero-subtitle", {
+        opacity: 0,
+        duration: 0.5,
+        ease: "power2.out",
+        delay: 0.4,
+      });
+      gsap.from(".hero-location", {
+        opacity: 0,
+        duration: 0.5,
+        ease: "power2.out",
+        delay: 0.45,
+      });
+      gsap.from(".hero-avatar", {
+        scale: 0.9,
+        opacity: 0,
+        duration: 0.6,
+        ease: "power2.out",
+        delay: 0.3,
+      });
+
+      // Story paragraphs
+      gsap.from(".story p, .pull-quote", {
+        scrollTrigger: { trigger: ".story", start: "top 80%" },
         opacity: 0,
         y: 20,
         duration: 0.6,
         ease: "power2.out",
-        delay: 0.25,
+        stagger: 0.1,
       });
-      gsap.from(".hero-photo", {
+
+      // What I Build cards
+      gsap.from(".build-card", {
+        scrollTrigger: { trigger: ".builds-grid", start: "top 80%" },
         opacity: 0,
-        x: 20,
-        duration: 0.8,
+        y: 20,
+        duration: 0.6,
         ease: "power2.out",
-        delay: 0.2,
+        stagger: 0.12,
+      });
+
+      // Featured Work items
+      gsap.from(".work-item", {
+        scrollTrigger: { trigger: ".work-grid", start: "top 80%" },
+        opacity: 0,
+        y: 20,
+        duration: 0.6,
+        ease: "power2.out",
+        stagger: 0.1,
+      });
+
+      // Approach lines
+      gsap.from(".approach-line", {
+        scrollTrigger: { trigger: ".approach-list", start: "top 80%" },
+        opacity: 0,
+        y: 20,
+        duration: 0.6,
+        ease: "power2.out",
+        stagger: 0.08,
+      });
+
+      // Availability box
+      gsap.from(".avail-box", {
+        scrollTrigger: { trigger: ".avail-box", start: "top 85%" },
+        opacity: 0,
+        y: 20,
+        duration: 0.6,
+        ease: "power2.out",
       });
     </script>
   </body>
